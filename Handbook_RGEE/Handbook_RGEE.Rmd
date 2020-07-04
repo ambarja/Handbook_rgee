@@ -20,7 +20,6 @@ output:
 subtitle: \includegraphics[width=5cm,height=5cm]{../Img/logo.png}\vspace{0.0in}
 classoption: a4paper
 ---
-###
 <center>
 <h3 href= 'https://github.com/r-spatial/rgee' ><small>rgee created by : Cesar Aybar, Qiusheng Wu, Lesly Bautista, Roy Yali, Antony Barja<small/></h3>
 <center/>
@@ -50,12 +49,12 @@ ee_Initialize()
 Para poder potencializar nuestro análisis geoespacial vamos a instalar algunas liberías adicionales, estás son las siguientes:
 
 ```{r eval=FALSE}
-install.packages('mapview')   # Pkgs visualizar de forma interáctiva
-install.packages('tidyverse') # Pkgs para ciencia de datos 
-install.packages('sf')        # Pkgs para manejar datos vectoriales
-install.packages('stars')    # Pkgs para manejar datos raster
-install.packages('cptcity')   # Pkgs para manejar paletas de colores
-install.packages('tmap')      # Pkgs para elaborar mapas temáticos
+install.packages('mapview')   # Para visualizar de forma interáctiva
+install.packages('tidyverse') # Para ciencia de datos 
+install.packages('sf')        # Para manejar datos vectoriales
+install.packages('stars')     # Para manejar datos raster
+install.packages('cptcity')   # Para manejar paletas de colores
+install.packages('tmap')      # Para elaborar mapas temáticos
 ```
 
 Para activar o llamar cada una de las liberías instaladas, empleamos la siguente función `library()` | `requiere()`.
@@ -88,7 +87,7 @@ ee_search_dataset() %>%
 ![](../Img/10.png)
 
 
-La función `ee_search_display()` nos permite visualizar el catálogo de imágenes satelitales dentro de la misma plataforma de **GEE** como se muestra en la siguiente fig
+La función `ee_search_display()` nos permite visualizar el catálogo de imágenes satelitales dentro de la misma plataforma de **GEE** como se muestra en la siguiente figura (Fig.03)
 
 ```{r,eval=FALSE}
 
@@ -262,7 +261,7 @@ modis_feb %>%
 
 Con `rgee` puedes analizar **series de tiempos** de forma rápida y con pocas lineas de código, para está ocación vamos a ver la variación mensual de nuestro punto de control en campo.
 
-*obs: `èe_extract()` nos permite estraer los valores pixeles a la geometría asociada!*
+*obs: `èe_extract()` nos permite estraer los valores pixeles a la geometría asociada*
 
 ```{r, eval=FALSE}
 ndvi_ts <- ee_extract(list_modis,
@@ -360,10 +359,11 @@ sen2$normalizedDifference(c('B8','B11')) %>%
 ![](../Img/17.png)
 
 
-# Caso prático: SAR para el mapeo de descargas máximas y deslizamientos usando rgee 
+# Caso prático: SAR para el mapeo de deslizamientos con rgee
+
+## Ámbito de estudio  
 
 ## Obtención de imágenes Sentinel - 1
-## Ámbito de estudio  
 ## Visualizando datos de sentinel-1
 ## Filtro de datos de sentinel-1 por fechas
 ## Combinación RGB
