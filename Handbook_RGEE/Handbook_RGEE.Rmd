@@ -18,16 +18,17 @@ output:
     latex_engine: xelatex
 classoption: a4paper
 ---
-
+###
+<center>
 <h3 href= 'https://github.com/r-spatial/rgee' ><small>rgee created by : Cesar Aybar, Qiusheng Wu, Lesly Bautista, Roy Yali, Antony Barja<small/></h3>
-
+<center/>
 \newpage
 
 # Introducción a rgee
 
 `rgee` es una "librería cliente" de Earth Engine para `R`, que permite a los usuarios aprovechar las ventajas que presenta el ecosistema espacial de R dentro de Google Earth Engine y viceversa.   
 
-Todas las clases, módulos y funciones de la API de `Python` de Earth Engine están disponibles en `R` gracias a la librería `reticulate` ; finalmente  `rgee` adiciona nuevos features como el diseño del imput y output de datos, la visualización en mapas interactivos, la facil extracción de series de tiempo, el manejo y la visualización de metadatos.
+Todas las clases, módulos y funciones de la API de `Python` de Earth Engine están disponibles en `R` gracias a la librería `reticulate` <3 ; finalmente  `rgee` adiciona nuevos features como el diseño del imput y output de datos, la visualización en mapas interactivos, la facil extracción de series de tiempo, el manejo y la visualización de metadatos.
 
 ![Arquitectura de rgee](../Img/rgee.png)
 
@@ -50,7 +51,7 @@ Para poder potencializar nuestro análisis geoespacial vamos a instalar algunas 
 install.packages('mapview')   # Pkgs visualizar de forma interáctiva
 install.packages('tidyverse') # Pkgs para ciencia de datos 
 install.packages('sf')        # Pkgs para manejar datos vectoriales
-install.packages('starts')    # Pkgs para manejar datos raster
+install.packages('stars')    # Pkgs para manejar datos raster
 install.packages('cptcity')   # Pkgs para manejar paletas de colores
 install.packages('tmap')      # Pkgs para elaborar mapas temáticos
 ```
@@ -68,11 +69,38 @@ library(tmap)
 
 ## Sintáxis básica de rgee
 
-`rgee` presenta una sintaxis muy similar a la de JavaScript o a la de Python como se muestra en la siguiente figura (Fig.02); sin embargo, hay algunas consideraciones que debes de tomar en cuensta, y este se detalla en el siguiente enlace [aquí.](https://r-spatial.github.io/rgee/articles/considerations.html)
+`rgee` presenta una sintaxis muy similar a la de JavaScript o a la de Python como se muestra en la siguiente figura (Fig.02); sin embargo, hay algunas consideraciones que debes de tomar en cuenta, y esto se detalla en el siguiente enlace [**aquí.**](https://r-spatial.github.io/rgee/articles/considerations.html)
 
 ![Sintaxis de GEE en Js, Python y R ](../Img/02.png)
 
-## Visualizando el cátagalo de Google Earth Engine dentro de R
+## Explorando el cátalago de datos de Google Earth Engine
+
+```{r, eval=FALSE}
+ee_search_dataset() %>% 
+  ee_search_type('ImageCollection') %>% 
+  ee_search_provider('European Union/ESA/Copernicus') %>% 
+  ee_search_title('Sentinel-2')
+  
+```
+
+![](../Img/10.png)
+
+
+La función `ee_search_display()` nos permite visualizar el catálogo de imágenes satelitales dentro de la misma plataforma de **GEE** como se muestra en la siguiente fig
+
+```{r,eval=FALSE}
+
+ee_search_dataset() %>% 
+  ee_search_type('ImageCollection') %>% 
+  ee_search_provider('European Union/ESA/Copernicus') %>%
+  ee_search_title('Sentinel-2') %>% 
+  ee_search_display()
+
+```
+
+![Catálogo de GEE](../Img/09.png)
+
+Visualización del cátagalo de Google Earth Engine dentro de R
 
 ```{r,eval=FALSE}
 ee_search_dataset() %>% 
@@ -89,7 +117,7 @@ ee_search_dataset() %>%
 ```
 ![](../Img/03.png)
 
-Visualizando los **Collection Snippet** de `Landsat` 
+## Explorando y visualizando imágenes `Landsat`,`Sentinel`,`MODIS` y `Aster`
 
 ```{r, eval=FALSE}
 ee_search_dataset() %>% 
@@ -100,7 +128,7 @@ ee_search_dataset() %>%
 ```
 ![](../Img/05.png)
 
-Imágenes disponibles por fechas para una ubicación espéfica
+Imágenes de `Landsat8` disponibles por fechas para una ubicación especifica:
 
 ```{r,eval=FALSE}
 disponible <- ee$ImageCollection('LANDSAT/LC08/C01/T1_TOA')$
@@ -112,7 +140,7 @@ ee_get_date_ic(disponible)
 
 ![](../Img/06.png)
 
-Visualizando la mejor escena 
+Visualización de la mejor escena:
 
 ```{r,eval=FALSE}
 lista <- ee$ImageCollection('LANDSAT/LC08/C01/T1_TOA')$
@@ -139,15 +167,194 @@ Map$addLayer(eeObject = landsat,visParams = viz)
 
 ![](../Img/08.png)
 
+Visualización de imágenes `sentinel 1, 2, 5`
 
-####
-####
-####
-####
-####
-####
+**Sentinel-1**
 
-# Caso prático: SAR para el mapeo de inundaciones usando rgee 
+```{r,eval=FALSE}
+latlon <- ee$Geometry$Point(-69.96,-12.84)
+coleccionVV <- ee$ImageCollection('COPERNICUS/S1_GRD')$
+  filterDate('2016-01-01', '2016-05-31')$
+  filter(ee$Filter$eq('instrumentMode', 'IW'))$
+  filter(ee$Filter$eq('orbitProperties_pass', 'ASCENDING'))$
+  filterMetadata('resolution_meters', 'equals' , 10)$
+  filterBounds(latlon)$
+  select('VV')
+
+Map$centerObject(latlon,zoom = 12)
+coleccionVV$
+  median()%>% 
+  Map$addLayer(visParams = list(min= -20 , max= -5))
+```
+
+![](../Img/11.png){height=40%}
+
+**Sentinel-2**
+
+```{r, eval=FALSE}
+coleccion_sen2 <- ee$ImageCollection('COPERNICUS/S2')$
+  filterDate('2016-01-01','2016-12-30')$
+  filterBounds(latlon)$
+  filterMetadata('CLOUDY_PIXEL_PERCENTAGE','less_than',5)
+
+ee_get_date_ic(coleccion_sen2)
+
+```
+
+![](../Img/10.png)
+
+```{r,eval=FALSE}
+id <- 'COPERNICUS/S2/20160917T150612_20160917T150614_T19LCF'
+sen2 <- ee$Image(id)
+Map$centerObject(latlon,zoom = 12)  
+
+sen2 %>% 
+  Map$addLayer(visParams = list(min = 450, max =3500, bands= c('B11','B8A','B2'), gamma = 0.5))
+
+
+```
+![](../Img/12.png)
+
+
+Visualización de imágenes MODIS
+
+```{r,eval=FALSE}
+list_modis <- ee$ImageCollection('MODIS/006/MOD13A2')$
+  filterDate('2016-01-01','2016-12-31')$
+  filterBounds(latlon)$
+  select("NDVI")
+
+```
+
+Visualizando una escena promedio de un mes específico
+
+```{r,eval=FALSE}
+
+modis_feb <- ee$Image(list_modis$filterDate('2016-02-01','2016-02-29')$mean())
+viz <- list(min = 0.0,
+              max = 9000.0,
+              bands = "NDVI",
+              palette = c(
+                'FFFFFF', 'CE7E45', 
+                'DF923D', 'F1B555',
+                'FCD163', '99B718',
+                '74A901', '66A000',
+                '529400', '3E8601', 
+                '207401', '056201',
+                '004C00', '023B01',
+                '012E01', '011D01', 
+                '011301')
+            )
+
+Map$centerObject(latlon, zoom = 9)
+modis_feb %>% 
+  Map$addLayer(visParams = viz) + 
+  Map$addLayer(latlon,visParams = list(color = '0518DC'))
+
+```
+
+![](../Img/13.png)
+
+Con `rgee` puedes analizar **series de tiempos** de forma rápida y con pocas lineas de código, para está ocación vamos a ver la variación mensual de nuestro punto de control en campo.
+
+*obs: `èe_extract()` nos permite estraer los valores pixeles a la geometría asociada!*
+
+```{r, eval=FALSE}
+ndvi_ts <- ee_extract(list_modis,
+                      latlon,
+                      fun = ee$Reducer$mean())
+
+colnames(ndvi_ts) <- sprintf("%02d", 1:12)
+
+ndvi_ts %>%
+  reshape2::melt() %>%
+  separate(variable,into = c("año","mes","día"),sep = "_") %>%
+  group_by(mes) %>% 
+  summarise(ndvi_mes =mean(value)) %>%
+  mutate(id = 1) %>% 
+  ggplot(aes(x = mes,y = ndvi_mes)) +
+  geom_line(aes(group = id),color = "#9ACD32",lwd = 2) +
+  geom_point(size = 4) +
+  theme_bw()
+
+```
+
+![](../Img/ggplot.png)
+
+Visualización de imágenes ASTER
+```{r,eval=FALSE}
+list_aster <- ee$ImageCollection('ASTER/AST_L1T_003')$
+  filterDate('2016-01-01', '2018-12-15')$
+  filterBounds(latlon)$
+  filterMetadata('CLOUDCOVER','less_than',1)
+
+ee_get_date_ic(list_aster)
+```
+
+![](../Img/14.png)
+
+
+Seleccionamos la segunda escena 
+
+```{r, eval=FALSE}
+id <- 'ASTER/AST_L1T_003/20180728150533'
+Map$centerObject(latlon,zoom = 12)
+
+ee$Image(id) %>% 
+  Map$addLayer(visParams = list(min = 25, 
+                                max = 150,
+                                bands = c('B3N','B02','B01'),
+                                gamma = 1.2))
+
+```
+
+![](../Img/15.png)
+
+## Cálculo de índices espectrales 
+
+Dentro de **R** puedes crear tus propias funciones y puedes calcular cualquier indices espectral, pero existen algunas funciones
+nativas dentro de `rgee` como `normalizedDifference` que te permiten calcular el ndvi y otros indices derivados
+
+**NDVI en Sentinel2**
+```{r,eval=FALSE}
+
+Map$centerObject(latlon,zoom = 12)
+viz <- list(palette = c(
+  "#d73027", "#f46d43", 
+  "#fdae61", "#fee08b",
+  "#d9ef8b", "#a6d96a",
+  "#66bd63", "#1a9850")
+  )
+
+sen2$normalizedDifference(c('B8A','B4')) %>% 
+  Map$addLayer(visParams = viz)
+
+
+```
+
+![](../Img/16.png)
+
+
+**NDWI en Sentinel2**
+
+```{r,eval=FALSE}
+viz <- list(
+  min = -0.15,
+  max = 0.65,
+  palette = c(
+    '#ffff', '#ffff', '#ffff',
+    '#ffff', '#ffff', '#0000ff',
+    '#0000ff')
+  )
+
+sen2$normalizedDifference(c('B8','B11')) %>% 
+  Map$addLayer(visParams = viz)
+```
+
+![](../Img/17.png)
+
+
+# Caso prático: SAR para el mapeo de descargas máximas y deslizamientos usando rgee 
 
 ## Obtención de imágenes Sentinel - 1
 ## Ámbito de estudio  
@@ -157,6 +364,7 @@ Map$addLayer(eeObject = landsat,visParams = viz)
 ## Aplicando un filtro de "speckle"
 ## Diferencia entre un antes y después
 ## Indentificación de áreas inundadas
-
+## Elaboración de mapas temáticos 
+## Exportando resultados
 
 

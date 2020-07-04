@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.6.27)  1 JUL 2020 17:50
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.6.27)  3 JUL 2020 20:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -903,23 +903,23 @@ LaTeX Font Info:    Font shape `TU/Chilanka(0)/b/n' will be
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
 LaTeX Font Info:    Font shape `TU/Chilanka(0)/b/n' will be
-(Font)              scaled to size 9.83276pt on input line 2.
+(Font)              scaled to size 9.83276pt on input line 3.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.4pt on input line 3.
+(Font)              scaled to size 8.4pt on input line 4.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 3.
+(Font)              scaled to size 6.0pt on input line 4.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.00128pt on input line 3.
+(Font)              scaled to size 12.00128pt on input line 4.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.40088pt on input line 3.
+(Font)              scaled to size 8.40088pt on input line 4.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00064pt on input line 3.
+(Font)              scaled to size 6.00064pt on input line 4.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.9989pt on input line 3.
+(Font)              scaled to size 11.9989pt on input line 4.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.39922pt on input line 3.
+(Font)              scaled to size 8.39922pt on input line 4.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99945pt on input line 3.
+(Font)              scaled to size 5.99945pt on input line 4.
 )
 \tf@toc=\write5
 \openout5 = `Handbook_RGEE.toc'.
@@ -930,63 +930,114 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 File: ../Img/rgee.png Graphic file (type bmp)
 <../Img/rgee.png>
 LaTeX Font Info:    Font shape `TU/Chilanka(0)/b/n' will be
-(Font)              scaled to size 11.7993pt on input line 162.
+(Font)              scaled to size 11.7993pt on input line 165.
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 169.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 172.
 File: ../Img/01.png Graphic file (type bmp)
 <../Img/01.png>
 
 LaTeX Font Warning: Font shape `TU/Chilanka(0)/m/sl' undefined
-(Font)              using `TU/Chilanka(0)/m/n' instead on input line 204.
+(Font)              using `TU/Chilanka(0)/m/n' instead on input line 207.
 
 [2]
 File: ../Img/02.png Graphic file (type bmp)
 <../Img/02.png>
+File: ../Img/10.png Graphic file (type bmp)
+<../Img/10.png>
+File: ../Img/09.png Graphic file (type bmp)
+<../Img/09.png>
+LaTeX Font Info:    Font shape `TU/Chilanka(0)/m/sl' will be
+(Font)              scaled to size 8.83575pt on input line 267.
+LaTeX Info: Redefining \. on input line 267.
+LaTeX Info: Redefining \% on input line 267.
+[3]
 File: ../Img/04.png Graphic file (type bmp)
 <../Img/04.png>
 File: ../Img/03.png Graphic file (type bmp)
 <../Img/03.png>
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <14.4> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 284.
 File: ../Img/05.png Graphic file (type bmp)
 <../Img/05.png>
-LaTeX Font Info:    Font shape `TU/Chilanka(0)/m/sl' will be
-(Font)              scaled to size 8.83575pt on input line 259.
-LaTeX Info: Redefining \. on input line 259.
-LaTeX Info: Redefining \% on input line 259.
-[3]
+LaTeX Info: Redefining \. on input line 298.
+LaTeX Info: Redefining \% on input line 298.
+[4]
 File: ../Img/06.png Graphic file (type bmp)
 <../Img/06.png>
 File: ../Img/07.png Graphic file (type bmp)
 <../Img/07.png>
 File: ../Img/08.png Graphic file (type bmp)
 <../Img/08.png>
-LaTeX Info: Redefining \. on input line 304.
-LaTeX Info: Redefining \% on input line 304.
-[4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 355.
-LaTeX Info: Redefining \. on input line 355.
-LaTeX Info: Redefining \% on input line 355.
-[5] [6]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 355.
+LaTeX Info: Redefining \. on input line 343.
+LaTeX Info: Redefining \% on input line 343.
+[5]
+File: ../Img/11.png Graphic file (type bmp)
+<../Img/11.png>
+LaTeX Info: Redefining \. on input line 367.
+LaTeX Info: Redefining \% on input line 367.
+[6]
+File: ../Img/10.png Graphic file (type bmp)
+<../Img/10.png>
+File: ../Img/12.png Graphic file (type bmp)
+<../Img/12.png>
+LaTeX Info: Redefining \. on input line 395.
+LaTeX Info: Redefining \% on input line 395.
+[7]
+File: ../Img/13.png Graphic file (type bmp)
+<../Img/13.png>
+LaTeX Info: Redefining \. on input line 435.
+LaTeX Info: Redefining \% on input line 435.
+[8]
+
+LaTeX Font Warning: Font shape `TU/Chilanka(0)/m/it' undefined
+(Font)              using `TU/Chilanka(0)/m/sl' instead on input line 440.
+
+LaTeX Font Info:    Font shape `TU/Chilanka(0)/m/sl' will be
+(Font)              scaled to size 10.6029pt on input line 440.
+File: ../Img/ggplot.png Graphic file (type bmp)
+<../Img/ggplot.png>
+LaTeX Info: Redefining \. on input line 465.
+LaTeX Info: Redefining \% on input line 465.
+[9]
+File: ../Img/14.png Graphic file (type bmp)
+<../Img/14.png>
+File: ../Img/15.png Graphic file (type bmp)
+<../Img/15.png>
+LaTeX Info: Redefining \. on input line 499.
+LaTeX Info: Redefining \% on input line 499.
+[10]
+File: ../Img/16.png Graphic file (type bmp)
+<../Img/16.png>
+LaTeX Info: Redefining \. on input line 525.
+LaTeX Info: Redefining \% on input line 525.
+[11]
+File: ../Img/17.png Graphic file (type bmp)
+<../Img/17.png>
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 587.
+LaTeX Info: Redefining \. on input line 587.
+LaTeX Info: Redefining \% on input line 587.
+[12] [13]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 587.
 (./Handbook_RGEE.aux
 LaTeX Info: Redefining \. on input line 26.
 LaTeX Info: Redefining \% on input line 26.
 )
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 355.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 355.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 587.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 587.
 Package rerunfilecheck Info: File `Handbook_RGEE.out' has not changed.
-(rerunfilecheck)             Checksum: B565354DAFAD2545EB1367D2E547E043;3050.
+(rerunfilecheck)             Checksum: 0ACE3E1489CFED575748C46C9185C8CF;4141.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 355.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 587.
  ) 
 Here is how much of TeX's memory you used:
- 18994 strings out of 481255
- 333205 string characters out of 5924190
- 784113 words of memory out of 5000000
- 36247 multiletter control sequences out of 15000+600000
- 538847 words of font info for 85 fonts, out of 8000000 for 9000
+ 19062 strings out of 481255
+ 334365 string characters out of 5924190
+ 784346 words of memory out of 5000000
+ 36301 multiletter control sequences out of 15000+600000
+ 538871 words of font info for 88 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 53i,12n,121p,907b,408s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,12n,121p,907b,476s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Handbook_RGEE.pdf (6 pages).
+Output written on Handbook_RGEE.pdf (13 pages).
