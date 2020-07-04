@@ -1,8 +1,7 @@
 ---
-title: 'Google Earth Engine en R'
-subtitle:  "\\includegraphics[width=5cm,height=5cm]{../Img/logo.png}\\vspace{0.0in}"
+title: "Google Earth Engine en R"
 author: "<p>Antony Barja<p/>"
-header-includes: 
+header-includes:
 - \usepackage{fontspec}
 - \setmainfont[BoldFont={Ubuntu Bold}]{Chilanka}
 - \usepackage[fontsize=12pt]{scrextend}
@@ -14,8 +13,11 @@ header-includes:
 - \geometry{left=1.2in,top=0.75in,bottom=0.75in}
 output:
   pdf_document:
-    toc: true
     latex_engine: xelatex
+    toc: yes
+  word_document:
+    toc: yes
+subtitle: \includegraphics[width=5cm,height=5cm]{../Img/logo.png}\vspace{0.0in}
 classoption: a4paper
 ---
 ###
@@ -187,7 +189,7 @@ coleccionVV$
   Map$addLayer(visParams = list(min= -20 , max= -5))
 ```
 
-![](../Img/11.png){height=40%}
+![](../Img/11.png)
 
 **Sentinel-2**
 
@@ -209,7 +211,10 @@ sen2 <- ee$Image(id)
 Map$centerObject(latlon,zoom = 12)  
 
 sen2 %>% 
-  Map$addLayer(visParams = list(min = 450, max =3500, bands= c('B11','B8A','B2'), gamma = 0.5))
+  Map$addLayer(visParams = list(min = 450,
+                                max =3500,
+                                bands= c('B11','B8A','B2'),
+                                gamma = 0.5))
 
 
 ```
@@ -281,7 +286,8 @@ ndvi_ts %>%
 
 ![](../Img/ggplot.png)
 
-Visualización de imágenes ASTER
+Visualización de imágenes `ASTER`
+
 ```{r,eval=FALSE}
 list_aster <- ee$ImageCollection('ASTER/AST_L1T_003')$
   filterDate('2016-01-01', '2018-12-15')$
