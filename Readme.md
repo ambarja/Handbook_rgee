@@ -5,8 +5,10 @@
 <a href="https://www.linkedin.com/in/antonybarja/"><img alt="@antonybarja" 
 src="https://img.shields.io/badge/Autor-Antony%20M.%20Barja-lightgrey" /></a>
 
-![](Img/presentation.png)
 
+<div style="width:100%;text-align:center;">
+  <a href=""> <img src="Img/presentation.png"> </a>
+</div>
 
 # References : 
 
