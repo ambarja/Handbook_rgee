@@ -6,7 +6,7 @@
 src="https://img.shields.io/badge/Autor-Antony%20M.%20Barja-lightgrey" /></a>
 
 
-<div style="width:100%;text-align:center;">
+<div align = "center">
   <a href=""> <img src="Img/presentation.png"> </a>
 </div>
 
