@@ -17,9 +17,12 @@ output:
     toc: yes
   word_document:
     toc: yes
-subtitle: \includegraphics[width=5cm,height=5cm]{../Img/logo.png}\vspace{0.0in}
+subtitle: \includegraphics[width=5.5cm,height=5.5cm]{../Img/logo.png}\vspace{0.0in}
 classoption: a4paper
 ---
+###
+###
+###
 <center>
 <h3 href= 'https://github.com/r-spatial/rgee' ><small>rgee created by : Cesar Aybar, Qiusheng Wu, Lesly Bautista, Roy Yali, Antony Barja<small/></h3>
 <center/>
@@ -52,9 +55,9 @@ Para poder potencializar nuestro análisis geoespacial vamos a instalar algunas 
 install.packages('mapview')   # Para visualizar de forma interáctiva
 install.packages('tidyverse') # Para ciencia de datos 
 install.packages('sf')        # Para manejar datos vectoriales
-install.packages('stars')     # Para manejar datos raster
+install.packages('raster')    # Para manejar datos raster
 install.packages('cptcity')   # Para manejar paletas de colores
-install.packages('tmap')      # Para elaborar mapas temáticos
+install.packages('ggmap')     # Para manejar tipos de basemap
 ```
 
 Para activar o llamar cada una de las liberías instaladas, empleamos la siguente función `library()` | `requiere()`.
@@ -63,9 +66,9 @@ Para activar o llamar cada una de las liberías instaladas, empleamos la siguent
 library(mapview)
 library(tidyverse)
 library(sf)
-library(stars)
+library(raster)
 library(cptcity)
-library(tmap)
+library(ggmap)
 ```
 
 ## Sintáxis básica de rgee
@@ -359,18 +362,134 @@ sen2$normalizedDifference(c('B8','B11')) %>%
 ![](../Img/17.png)
 
 
-# Caso prático: SAR para el mapeo de deslizamientos con rgee
+# Caso prático: Mapeo de deslizamientos con rgee
 
 ## Ámbito de estudio  
 
-## Obtención de imágenes Sentinel - 1
-## Visualizando datos de sentinel-1
-## Filtro de datos de sentinel-1 por fechas
-## Combinación RGB
-## Aplicando un filtro de "speckle"
-## Diferencia entre un antes y después
-## Indentificación de áreas inundadas
-## Elaboración de mapas temáticos 
-## Exportando resultados
+![](../Img/Ubicacion.png)
+
+## Obtención de imágenes Sentinel - 2
+
+```{r, eval=FALSE}
+box <- ee$Geometry$Rectangle(coords = c(-71.72,-15.67,-71.67,-15.64),
+                             proj = "EPSG:4326",
+                             geodesic = FALSE)
+coleccion_sen2 <- ee$ImageCollection('COPERNICUS/S2_SR')$
+  filterDate('2020-06-23','2020-06-28')$
+  filterBounds(box)$
+  filterMetadata('CLOUDY_PIXEL_PERCENTAGE','less_than',40)
+
+ee_get_date_ic(coleccion_sen2)
+```
+
+![](../Img/18.png)
 
 
+```{r, eval=FALSE}
+
+id_img <- 'COPERNICUS/S2_SR/20200623T145729_20200623T150542_T18LZH'
+sen2 <- ee$Image(id_img)$
+  clip(box)
+Map$centerObject(box)
+
+viz <-list(min = 450,
+           max =3500,
+           bands= c('B8A','B4','B3'),
+           gamma = 1.2)
+
+Map$addLayer(sen2,visParams = viz)
+```
+
+![](../Img/19.png)
+
+
+## Clasificación No Supervisada
+
+```{r,eval=FALSE}
+# Conjunto de datos de entrenamiento
+training <- sen2$sample(
+  region = box,
+  scale = 10,
+  numPixels = 10000
+)
+
+# Generar el número cluster y entrenear
+clusterer <- ee$Clusterer$wekaKMeans(10)$train(training)
+
+# Clasificar la imágenes usando el cluster entrenado
+result <- sen2$cluster(clusterer)
+
+# Visualización de la imágen clasificada
+Map$centerObject(box)
+Map$addLayer(
+  eeObject = result$randomVisualizer(),
+  name = "clusters"
+)
+
+
+
+```
+
+![](../Img/21.png)
+
+## Transformar un objeto ee.Image a un objeto Raster* 
+
+Rgee tiene funciones para transformar un objeto de earhtengine a un objeto de tipo raster* dentro de R, para esto vamos usar la función `ee_as_raster()` como se muestra en la siguiente linea de código: 
+
+```{r,eval=FALSE}
+result %>% 
+  ee_as_raster(region = box,
+               scale = 10,) -> img_clas
+
+```
+
+![](../Img/22.png)
+
+## Seleccionar el mejor cluster que carácteriza la amenaza (cluster 6 y 5)
+
+```{r,eval=FALSE}
+img_clas %>% 
+  projectRaster(crs = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs ') %>% 
+  as('SpatialPixelsDataFrame') %>% 
+  subset(cluster <= 6 & cluster > 5 ) %>% 
+  raster() %>% 
+  as.data.frame(xy = TRUE) %>%
+  na.omit() %>% 
+  mutate(id = 1) -> clase_des
+
+# Visualización simple usando ggplot
+clase_des %>% 
+  ggplot() + 
+  geom_tile(aes(x = x, y = y, fill = factor(id,labels = 'cluster:: 06-05')))+ 
+    scale_fill_manual(values = "red",name= "Leyenda")
+
+```
+
+![](../Img/23.png)
+
+## Elaboración de mapa final 
+
+```{r,eval=FALSE}
+us <- c(left = -71.72,
+        bottom = -15.67,
+        right = -71.67,
+        top = -15.64)
+
+get_map(us,
+        zoom = 14,
+        maptype = "satellite") %>%
+  ggmap() +
+  geom_tile(data = clase_des,
+            aes(x = x,
+                y = y,
+                fill = factor(id,
+                              labels = "cluster_06_05"))) +
+  scale_fill_manual(values = "red",
+                    name= "Map") + 
+  ggtitle("Kmeans-clustering - Sentinel2") +
+  theme(plot.title = element_text(lineheight =.4,
+                                  face="bold"),
+        legend.position = c(0.10,0.05))
+
+```
+![](../Img/mapa_final.png)
